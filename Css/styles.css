@@ -12,10 +12,10 @@
     --Font-Roboto:"Roboto", "Helvetica", sans-serif;
     --Background:#121214;
     --Background-Playlist:#19191C;
-    --Background-Category:#19191C;
+    --Background-Category:#28282c;
     --Background-video:#202024;
     --Text-color:#FFFF;
-    --Text-playlist:#121214;
+    --Text-playlist:#bbbbbb;
 }
 
 
@@ -79,25 +79,93 @@ body{
     background: var(--Background-Playlist);
     width: 40%;
     height: 70%;
-    border-radius: 2rem;
-    overflow-y: scroll;
+    border-radius: 1.3rem;
+    overflow: hidden;
 }
 
 
-.Container > .Container-Playlist::-webkit-scrollbar {
+
+.Container-Playlist > .Playlist {
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+ .Container-Playlist > .Playlist::-webkit-scrollbar {
     width: 8px; 
 }
 
 
-.Container > .Container-Playlist::-webkit-scrollbar-thumb {
+.Container-Playlist > .Playlist::-webkit-scrollbar-thumb {
     width: 5px;
     background-color: #888888ad; 
     border-radius: 4px; 
 }
 
 
-.Container > .Container-Playlist::-webkit-scrollbar-track {
+.Container-Playlist > .Playlist::-webkit-scrollbar-track {
     width: 5px;
     background-color: #dddddd0c; 
     border-radius: 5px;
+}
+
+.Playlist > .Btn-Categoy{
+    width: 100%;
+    background: var(--Background-Category);
+    padding: 1.5rem;
+    color: var(--Text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+    
+}
+.Playlist > .Btn-Categoy:hover{
+    filter: brightness(.9);
+}
+
+.Btn-Categoy > h2{
+    font-size: 1.7rem;
+}
+.Btn-Categoy > i{
+    font-size: 2.8rem;
+}
+
+.Modulo{
+    padding:1rem;
+    background: var(--Background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.video-item{
+    background: var(--Background-video);
+    width: 100%;
+    margin-bottom: 1rem;
+    height: 5rem;
+    border-radius: .3rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+}
+.video-item:hover{
+   filter: brightness(.9);
+}
+.video-item > h2{
+    text-align: center;
+    padding: 1.5rem 1rem;
+    text-transform: capitalize;
+    color: var(--Text-playlist);
+    font-size: 1.7rem;
+}
+.video-item > video {
+   
+    height: 100%;
 }
