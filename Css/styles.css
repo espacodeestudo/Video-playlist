@@ -141,7 +141,9 @@ body{
     flex-direction: column;
     align-items: center;
 }
-
+.Modulo-desative{
+    display: none;
+}
 
 .video-item{
     background: var(--Background-video);
