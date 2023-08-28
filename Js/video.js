@@ -12,16 +12,9 @@ export default  [
             video: "../Video/istockphoto-1046965704-640_adpp_is.mp4",
             title : "istockphoto",
          },
-         
-
-       ] 
-    },
-    {
-        category: "Modulo 2",
-        playlist : [
-          {
+         {
             id:3,
-             video: "../seoul_-_21116 (720p).mp4",
+             video: "../Video/ceu(1080p).mp4",
              title : "seoul 1",
           },
           {
@@ -29,8 +22,29 @@ export default  [
              video: "../Video/seoul_-_24603 (1080p).mp4",
              title : "seoul 2",
           },
-          
- 
-        ] 
-     }
+          {
+            id:5,
+            video: "../Video/istockphoto-1046965704-640_adpp_is.mp4",
+            title : "New York",
+         },
+         {
+            id : 6,
+            video: "../Video/city_-_6782 (720p).mp4",
+            title : "Luanda",
+         },
+         {
+            id:7,
+            video: "../Video/seoul_-_24603 (1080p).mp4",
+            title : "Benguela",
+          },
+          {
+            id:4,
+            video: "../Video/ceu(1080p).mp4",
+            title : "Huambo",
+          },
+         
+
+       ] 
+    },
+    
 ]

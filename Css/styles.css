@@ -16,6 +16,7 @@
     --Background-video:#202024;
     --Text-color:#FFFF;
     --Text-playlist:#bbbbbb;
+    --Background-Active : #1b232b;
 }
 
 
@@ -63,7 +64,7 @@ body{
 
 .Container-video > video{
     max-width: 100%;
-    margin-bottom: 4rem;
+    
 }
 
 .Container-video > label{
@@ -88,20 +89,11 @@ body{
 .Container-Playlist > .Playlist {
     max-width: 100%;
     max-height: 100%;
-    overflow-y: scroll;
+    
     display: flex;
     flex-direction: column;
 }
- .Container-Playlist > .Playlist::-webkit-scrollbar {
-    width: 8px; 
-}
 
-
-.Container-Playlist > .Playlist::-webkit-scrollbar-thumb {
-    width: 5px;
-    background-color: #888888ad; 
-    border-radius: 4px; 
-}
 
 
 .Container-Playlist > .Playlist::-webkit-scrollbar-track {
@@ -136,16 +128,46 @@ body{
 
 .Modulo{
     padding:1rem;
-    background: var(--Background);
+    background: var(--Background-Playlist);
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+    height: 100%;
+    overflow-y: scroll;
 }
+
+.Modulo::-webkit-scrollbar {
+    width: 8px; 
+}
+
+
+.Modulo::-webkit-scrollbar-thumb {
+    width: 5px;
+    background-color: #cececead; 
+    border-radius: 4px; 
+}
+
+
+.Modulo::-webkit-scrollbar-track {
+    width: 5px;
+    background-color: #ffffffc7; 
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
 .Modulo-desative{
     display: none;
 }
 
-.video-item{
+.video-item, .video-itemActive{
     background: var(--Background-video);
     width: 100%;
     margin-bottom: 1rem;
@@ -170,4 +192,8 @@ body{
 .video-item > video {
    
     height: 100%;
+}
+
+.video-itemActive{
+    background: var(--Background-Active);
 }
