@@ -1,14 +1,14 @@
 import Data from "./video.js";
 const  Modulo = document.querySelector(".Modulo")
 const Playlist = document.querySelector("#Playlist")
-
+let videoitemActive = null;
 
 
 async function HandleCategory(){
     Data.forEach((item, index) => {
         const Button = document.createElement("button")
         Button.classList.add(`Btn-Categoy`)
-        Button.setAttribute("id",`Btn-Categoy${index}`)
+        Button.setAttribute("id","Btn-Categoy")
         Button.innerHTML=`<h2>${item.category}</h2> <i class='bx bx-chevron-down'></i>` 
     
         
@@ -21,13 +21,8 @@ async function HandleCategory(){
         }
     
         Button.onclick = () => {
-            LoadVideoCategory(item.category)
-                if(Modulo.classList.contains("Modulo")){
-                    Modulo.className= "Modulo-desative"
-                }
-                else{
-                    Modulo.className= "Modulo"
-                }
+            LoadVideoCategory()
+               
             
             
             
@@ -37,14 +32,11 @@ async function HandleCategory(){
     });
 }
 
-function LoadVideoCategory(category) {
-    
-    
-   
-
+function LoadVideoCategory() {
+    const ButtonCategory = document.querySelector("#Btn-Categoy")
     Modulo.innerHTML=""
     Data.forEach(dataItem => {
-        if (dataItem.category === category) {
+        
             dataItem.playlist.forEach(videoItem => {
                
                 
@@ -59,11 +51,28 @@ function LoadVideoCategory(category) {
                     Container.appendChild(H2);
                     Modulo.appendChild(Container);
 
-                    Container.onclick = () => Handle(videoItem)
+                    Container.onclick = () =>{
+                        Handle(videoItem)
+                        if(videoitemActive ){
+                            videoitemActive.classList.remove("video-itemActive")
+                        }
+                        Container.classList.add("video-itemActive")
+                        videoitemActive = Container
+                        
+                    } 
                     
                 
             });
-        }
+
+            ButtonCategory.onclick = () =>{
+                if(Modulo.classList.contains("Modulo")){
+                    Modulo.className= "Modulo-desative"
+                }
+                else{
+                    Modulo.className= "Modulo"
+                }
+            }
+        
     });
 
    
@@ -81,3 +90,4 @@ function Handle(VideoItem){
 
 
 HandleCategory()
+LoadVideoCategory()
