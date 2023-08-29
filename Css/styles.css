@@ -59,6 +59,7 @@ body{
     border-radius: 1rem  1rem 2rem 2rem;
     overflow: hidden;
     padding-bottom: 2rem;
+    position: relative;
 
 }
 
@@ -67,6 +68,30 @@ body{
     
 }
 
+.Container-video > .video-control{
+    position: absolute;
+    top: 32rem;
+    padding:0 3rem;
+    display: flex;
+    column-gap: 1.3rem;
+}
+
+.video-control > button{
+    background: var(--Background-Category);
+    color: var(--Text-color);
+    padding: 0.5rem;
+    clip-path: circle();
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+}
+.video-control > button:hover{
+    filter: brightness(.9);
+    
+}
+.video-control  button > i{
+   
+    font-size: 2.3rem;
+}
 .Container-video > label{
     padding: 3rem;
     font-size: 1.8rem;
@@ -134,7 +159,7 @@ body{
     align-items: center;
     
     height: 100%;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 .Modulo::-webkit-scrollbar {
