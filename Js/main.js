@@ -3,9 +3,13 @@ const Modulo = document.querySelector(".Modulo")
 const Playlist = document.querySelector("#Playlist")
 const BtnPlay = document.querySelector("#Btn-play")
 const BtnNext =document.querySelector("#Btn-next")
+const Btnprev = document.querySelector("#Btn-Prev")
 const Video = document.querySelector("#Videoplay")
 let videoitemActive = null;
+let ElementClick = null
 let index = 0
+let ButtonActive = false
+
 
 function HandleCategory() {
     Data.forEach(item => {
@@ -14,13 +18,15 @@ function HandleCategory() {
         Button.setAttribute("id", "Btn-Categoy")
         Button.innerHTML = `<h2>${item.category}</h2> <i class='bx bx-chevron-down'></i>`
         Playlist.insertBefore(Button, Playlist.firstChild);
-        Button.onclick = () => LoadVideoCategory()
+        Button.onclick = () => {
+            LoadVideoCategory()}
     });
 }
 
 function LoadVideoCategory() {
     const ButtonCategory = document.querySelector("#Btn-Categoy")
     Modulo.innerHTML = ""
+
     Data.forEach(dataItem => {
 
         dataItem.playlist.forEach(videoItem => {
@@ -36,7 +42,10 @@ function LoadVideoCategory() {
             Container.appendChild(H2);
             Modulo.appendChild(Container);
 
-            Container.onclick = () => {
+            Container.onclick = (e) => {
+                ElementClick= e.target
+
+              ButtonActive = true
                 Handle(videoItem)
                 if (videoitemActive) {
                     videoitemActive.classList.remove("video-itemActive")
@@ -80,30 +89,51 @@ BtnNext.onclick =() =>{
     const VideoCurrent = Video.getAttribute("src")
     const VideoItem = document.querySelectorAll(".video-item")
     
-    if(videoitemActive === null){
-        VideoItem[0].classList.add("video-itemActive")
-       videoitemActive = VideoItem[0]
 
-       const NewVideoItem ={
-        video: VideoItem[0].querySelector("video").getAttribute("src"),
-        title: VideoItem[0].querySelector("h2").textContent
-       }
-       
-       Handle(NewVideoItem )
-      
-
-    }
-    else if(videoitemActive !==  VideoItem[index]){
-
-        if(!VideoItem[index]){
-            Handle()
+    if(!ButtonActive){
+        
+        
+    if(videoitemActive !==  VideoItem[index]){
+    
             
-        } 
-        else{
+                if (videoitemActive) {
+                    videoitemActive.classList.remove("video-itemActive")
+                }
+                VideoItem[index].classList.add("video-itemActive")
+                videoitemActive = VideoItem[index]
+         
+                const NewVideoItem ={
+                 video: VideoItem[index].querySelector("video").getAttribute("src"),
+                 title: VideoItem[index].querySelector("h2").textContent
+                }
+                
+                Handle(NewVideoItem )
+                
+            
+        }
+        if(VideoItem.length > index) index++;
+       
+      
+    }
+    else{
+        index = 0
+        
+        Array.from(VideoItem).map((item, ind) =>{
+            if( videoitemActive=== VideoItem[ind]){
+                console.log(VideoItem.length - 1 >= index)
+            if(VideoItem.length - 1 >= index) index = ind + 1;
+
+        }
+              return index
+        })
+
+        
+        if(index){
+
             if (videoitemActive) {
                 videoitemActive.classList.remove("video-itemActive")
             }
-            VideoItem[index].classList.add("video-itemActive")
+            VideoItem[index ? index : 7].classList.add("video-itemActive")
             videoitemActive = VideoItem[index]
      
             const NewVideoItem ={
@@ -111,20 +141,83 @@ BtnNext.onclick =() =>{
              title: VideoItem[index].querySelector("h2").textContent
             }
             
-            Handle(NewVideoItem )
+            Handle(NewVideoItem )   
+                console.log(index)
+        }
+       
+        else{
+            Handle()  
             
         }
+        
     }
+
    
-    index++
+  
     
         
     
 }
 
+Btnprev.onclick = () => {
+    --index
+    const VideoItem = document.querySelectorAll(".video-item")            
+
+    if(ButtonActive){
+        if (videoitemActive) {
+            videoitemActive.classList.remove("video-itemActive")
+        }
+        VideoItem[index ? index : 0].classList.add("video-itemActive")
+        videoitemActive = VideoItem[index]
+ 
+        const NewVideoItem ={
+         video: VideoItem[index].querySelector("video").getAttribute("src"),
+         title: VideoItem[index].querySelector("h2").textContent
+        }
+        
+        Handle(NewVideoItem )
+    }
+
+    else{
+
+        Array.from(VideoItem).map((item, ind) =>{
+            if( videoitemActive=== VideoItem[ind]){
+               
+            if(VideoItem.length - 1 >= index) index = ind - 1;
+
+        }
+              return index
+        })
+
+        
+        
+
+            if (videoitemActive) {
+                videoitemActive.classList.remove("video-itemActive")
+            }
+            VideoItem[index ? index : 0].classList.add("video-itemActive")
+            videoitemActive = VideoItem[index]
+     
+            const NewVideoItem ={
+             video: VideoItem[index].querySelector("video").getAttribute("src"),
+             title: VideoItem[index].querySelector("h2").textContent
+            }
+            
+            Handle(NewVideoItem )   
+                
+        
+       
+       
+
+    }
+        
+    
+}
+
+
 function Handle(VideoItem) {
 
-    
+   
     const Description = document.querySelector("#Description")
     Video.src = VideoItem ? VideoItem.video : "../Video/girl.mp4"
     Description.textContent =VideoItem ? VideoItem.title : "Introduction"
