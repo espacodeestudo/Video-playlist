@@ -6,6 +6,7 @@ const BtnNext =document.querySelector("#Btn-next")
 const Btnprev = document.querySelector("#Btn-Prev")
 const Video = document.querySelector("#Videoplay")
 let videoitemActive = null;
+
 let index = 0
 let ButtonActive = false
 
@@ -69,6 +70,21 @@ function LoadVideoCategory() {
 
 }
 
+function HandleNewVideoItem(Newidex){
+    const VideoItem = document.querySelectorAll(".video-item")
+    if (videoitemActive) {
+        videoitemActive.classList.remove("video-itemActive")
+    }
+    VideoItem[Newidex].classList.add("video-itemActive")
+    videoitemActive = VideoItem[Newidex]
+
+    const NewVideoItem ={
+     video: VideoItem[Newidex].querySelector("video").getAttribute("src"),
+     title: VideoItem[Newidex].querySelector("h2").textContent
+    }
+    
+    Handle(NewVideoItem )  
+}
 
 BtnPlay.onclick = () =>{
      
@@ -83,18 +99,19 @@ BtnPlay.onclick = () =>{
 
 
 BtnNext.onclick =() =>{
-    
+   
     const VideoItem = document.querySelectorAll(".video-item")
     
 
     if(!ButtonActive){
         
         
-    if(videoitemActive !==  VideoItem[index]){     
-        HandleNewVideoItem(index)    
+    if(videoitemActive !==  VideoItem[index]){
+    
+        HandleNewVideoItem(index) 
+            
         }
-
-        if(VideoItem.length - 1 > index) index++;
+        if(VideoItem.length > index) index++;
        
       
     }
@@ -102,7 +119,8 @@ BtnNext.onclick =() =>{
         index = 0
         
         Array.from(VideoItem).map((item, ind) =>{
-            if( videoitemActive=== VideoItem[ind]){
+            if( videoitemActive === VideoItem[ind]){
+                console.log(VideoItem.length - 1 >= index)
             if(VideoItem.length - 1 >= index) index = ind + 1;
 
         }
@@ -112,7 +130,19 @@ BtnNext.onclick =() =>{
         
         if(index){
 
-            HandleNewVideoItem(index)
+            if (videoitemActive) {
+                videoitemActive.classList.remove("video-itemActive")
+            }
+            VideoItem[index].classList.add("video-itemActive")
+            videoitemActive = VideoItem[index]
+     
+            const NewVideoItem ={
+             video: VideoItem[index].querySelector("video").getAttribute("src"),
+             title: VideoItem[index].querySelector("h2").textContent
+            }
+            
+            Handle(NewVideoItem )   
+                
         }
        
         else{
@@ -134,10 +164,23 @@ Btnprev.onclick = () => {
     const VideoItem = document.querySelectorAll(".video-item")            
 
     if(!ButtonActive){
-        HandleNewVideoItem(index)
+        if (videoitemActive) {
+            videoitemActive.classList.remove("video-itemActive")
+        }
+        VideoItem[index ? index : 0].classList.add("video-itemActive")
+        videoitemActive = VideoItem[index]
+ 
+        const NewVideoItem ={
+         video: VideoItem[index].querySelector("video").getAttribute("src"),
+         title: VideoItem[index].querySelector("h2").textContent
+        }
+        
+        Handle(NewVideoItem )
     }
 
     else{
+
+        if(index){
 
         Array.from(VideoItem).map((item, ind) =>{
             if( videoitemActive=== VideoItem[ind]){
@@ -147,28 +190,19 @@ Btnprev.onclick = () => {
         }
               return index
         })
-        HandleNewVideoItem(index)
-    }    
+        HandleNewVideoItem(index) 
+    }
+        
+       
+       
+
+    }
+        
+    
 }
 
 
-function HandleNewVideoItem(Newidex){
-    const VideoItem = document.querySelectorAll(".video-item")
 
-    
-    if (videoitemActive) {
-        videoitemActive.classList.remove("video-itemActive")
-    }
-    VideoItem[Newidex].classList.add("video-itemActive")
-    videoitemActive = VideoItem[Newidex]
-
-    const NewVideoItem ={
-     video: VideoItem[Newidex].querySelector("video").getAttribute("src"),
-     title: VideoItem[Newidex].querySelector("h2").textContent
-    }
-    
-    Handle(NewVideoItem )  
-}
 
 function Handle(VideoItem) {
 
@@ -177,12 +211,9 @@ function Handle(VideoItem) {
     Video.src = VideoItem ? VideoItem.video : "../Video/girl.mp4"
     Description.textContent =VideoItem ? VideoItem.title : "Introduction"
 
-    
-
    
 }
 
 
 HandleCategory()
 LoadVideoCategory()
-
