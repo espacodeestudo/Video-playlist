@@ -120,7 +120,7 @@ BtnNext.onclick =() =>{
         
         Array.from(VideoItem).map((item, ind) =>{
             if( videoitemActive === VideoItem[ind]){
-                console.log(VideoItem.length - 1 >= index)
+                
             if(VideoItem.length - 1 >= index) index = ind + 1;
 
         }
