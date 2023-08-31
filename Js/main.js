@@ -43,7 +43,7 @@ function LoadVideoCategory() {
 
             Container.onclick = () => {
               ButtonActive = true
-                Handle(videoItem)
+                HandleVideoplay(videoItem)
                 if (videoitemActive) {
                     videoitemActive.classList.remove("video-itemActive")
                 }
@@ -69,6 +69,21 @@ function LoadVideoCategory() {
 
 }
 
+function HandleNewVideoItem(Newidex){
+    const VideoItem = document.querySelectorAll(".video-item")
+    if (videoitemActive) {
+        videoitemActive.classList.remove("video-itemActive")
+    }
+    VideoItem[Newidex].classList.add("video-itemActive")
+    videoitemActive = VideoItem[Newidex]
+
+    const NewVideoItem ={
+     video: VideoItem[Newidex].querySelector("video").getAttribute("src"),
+     title: VideoItem[Newidex].querySelector("h2").textContent
+    }
+    
+   HandleVideoplay(NewVideoItem )  
+}
 
 BtnPlay.onclick = () =>{
      
@@ -83,18 +98,19 @@ BtnPlay.onclick = () =>{
 
 
 BtnNext.onclick =() =>{
-    
+   
     const VideoItem = document.querySelectorAll(".video-item")
     
 
     if(!ButtonActive){
         
         
-    if(videoitemActive !==  VideoItem[index]){     
-        HandleNewVideoItem(index)    
+    if(videoitemActive !==  VideoItem[index]){
+    
+        HandleNewVideoItem(index) 
+            
         }
-
-        if(VideoItem.length - 1 > index) index++;
+        if(VideoItem.length > index) index++;
        
       
     }
@@ -102,7 +118,8 @@ BtnNext.onclick =() =>{
         index = 0
         
         Array.from(VideoItem).map((item, ind) =>{
-            if( videoitemActive=== VideoItem[ind]){
+            if( videoitemActive === VideoItem[ind]){
+                
             if(VideoItem.length - 1 >= index) index = ind + 1;
 
         }
@@ -112,11 +129,12 @@ BtnNext.onclick =() =>{
         
         if(index){
 
-            HandleNewVideoItem(index)
+           HandleNewVideoItem(index)   
+                
         }
        
         else{
-            Handle()  
+            HandleVideoplay()  
             
         }
         
@@ -134,10 +152,12 @@ Btnprev.onclick = () => {
     const VideoItem = document.querySelectorAll(".video-item")            
 
     if(!ButtonActive){
-        HandleNewVideoItem(index)
+       HandleNewVideoItem(index) 
     }
 
     else{
+
+        if(index){
 
         Array.from(VideoItem).map((item, ind) =>{
             if( videoitemActive=== VideoItem[ind]){
@@ -147,37 +167,26 @@ Btnprev.onclick = () => {
         }
               return index
         })
-        HandleNewVideoItem(index)
-    }    
+        HandleNewVideoItem(index) 
+    }
+        
+       
+       
+
+    }
+        
+    
 }
 
 
-function HandleNewVideoItem(Newidex){
-    const VideoItem = document.querySelectorAll(".video-item")
 
-    
-    if (videoitemActive) {
-        videoitemActive.classList.remove("video-itemActive")
-    }
-    VideoItem[Newidex].classList.add("video-itemActive")
-    videoitemActive = VideoItem[Newidex]
 
-    const NewVideoItem ={
-     video: VideoItem[Newidex].querySelector("video").getAttribute("src"),
-     title: VideoItem[Newidex].querySelector("h2").textContent
-    }
-    
-    Handle(NewVideoItem )  
-}
-
-function Handle(VideoItem) {
+function HandleVideoplay(VideoItem) {
 
    
     const Description = document.querySelector("#Description")
     Video.src = VideoItem ? VideoItem.video : "../Video/girl.mp4"
     Description.textContent =VideoItem ? VideoItem.title : "Introduction"
-
-    
 
    
 }
@@ -185,4 +194,3 @@ function Handle(VideoItem) {
 
 HandleCategory()
 LoadVideoCategory()
-
