@@ -6,7 +6,6 @@ const BtnNext =document.querySelector("#Btn-next")
 const Btnprev = document.querySelector("#Btn-Prev")
 const Video = document.querySelector("#Videoplay")
 let videoitemActive = null;
-
 let index = 0
 let ButtonActive = false
 
@@ -44,7 +43,7 @@ function LoadVideoCategory() {
 
             Container.onclick = () => {
               ButtonActive = true
-                Handle(videoItem)
+                HandleVideoplay(videoItem)
                 if (videoitemActive) {
                     videoitemActive.classList.remove("video-itemActive")
                 }
@@ -83,7 +82,7 @@ function HandleNewVideoItem(Newidex){
      title: VideoItem[Newidex].querySelector("h2").textContent
     }
     
-    Handle(NewVideoItem )  
+   HandleVideoplay(NewVideoItem )  
 }
 
 BtnPlay.onclick = () =>{
@@ -130,23 +129,12 @@ BtnNext.onclick =() =>{
         
         if(index){
 
-            if (videoitemActive) {
-                videoitemActive.classList.remove("video-itemActive")
-            }
-            VideoItem[index].classList.add("video-itemActive")
-            videoitemActive = VideoItem[index]
-     
-            const NewVideoItem ={
-             video: VideoItem[index].querySelector("video").getAttribute("src"),
-             title: VideoItem[index].querySelector("h2").textContent
-            }
-            
-            Handle(NewVideoItem )   
+           HandleNewVideoItem(index)   
                 
         }
        
         else{
-            Handle()  
+            HandleVideoplay()  
             
         }
         
@@ -164,18 +152,7 @@ Btnprev.onclick = () => {
     const VideoItem = document.querySelectorAll(".video-item")            
 
     if(!ButtonActive){
-        if (videoitemActive) {
-            videoitemActive.classList.remove("video-itemActive")
-        }
-        VideoItem[index ? index : 0].classList.add("video-itemActive")
-        videoitemActive = VideoItem[index]
- 
-        const NewVideoItem ={
-         video: VideoItem[index].querySelector("video").getAttribute("src"),
-         title: VideoItem[index].querySelector("h2").textContent
-        }
-        
-        Handle(NewVideoItem )
+       HandleNewVideoItem(index) 
     }
 
     else{
@@ -204,7 +181,7 @@ Btnprev.onclick = () => {
 
 
 
-function Handle(VideoItem) {
+function HandleVideoplay(VideoItem) {
 
    
     const Description = document.querySelector("#Description")
