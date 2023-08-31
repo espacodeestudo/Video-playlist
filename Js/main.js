@@ -6,7 +6,7 @@ const BtnNext =document.querySelector("#Btn-next")
 const Btnprev = document.querySelector("#Btn-Prev")
 const Video = document.querySelector("#Videoplay")
 let videoitemActive = null;
-let ElementClick = null
+
 let index = 0
 let ButtonActive = false
 
@@ -42,9 +42,7 @@ function LoadVideoCategory() {
             Container.appendChild(H2);
             Modulo.appendChild(Container);
 
-            Container.onclick = (e) => {
-                ElementClick= e.target
-
+            Container.onclick = () => {
               ButtonActive = true
                 Handle(videoItem)
                 if (videoitemActive) {
@@ -86,12 +84,11 @@ BtnPlay.onclick = () =>{
 
 
 BtnNext.onclick =() =>{
-    const VideoCurrent = Video.getAttribute("src")
+   
     const VideoItem = document.querySelectorAll(".video-item")
     
 
     if(!ButtonActive){
-        
         
     if(videoitemActive !==  VideoItem[index]){
     
@@ -133,7 +130,7 @@ BtnNext.onclick =() =>{
             if (videoitemActive) {
                 videoitemActive.classList.remove("video-itemActive")
             }
-            VideoItem[index ? index : 7].classList.add("video-itemActive")
+            VideoItem[index].classList.add("video-itemActive")
             videoitemActive = VideoItem[index]
      
             const NewVideoItem ={
@@ -142,7 +139,7 @@ BtnNext.onclick =() =>{
             }
             
             Handle(NewVideoItem )   
-                console.log(index)
+                
         }
        
         else{
@@ -164,18 +161,7 @@ Btnprev.onclick = () => {
     const VideoItem = document.querySelectorAll(".video-item")            
 
     if(ButtonActive){
-        if (videoitemActive) {
-            videoitemActive.classList.remove("video-itemActive")
-        }
-        VideoItem[index ? index : 0].classList.add("video-itemActive")
-        videoitemActive = VideoItem[index]
- 
-        const NewVideoItem ={
-         video: VideoItem[index].querySelector("video").getAttribute("src"),
-         title: VideoItem[index].querySelector("h2").textContent
-        }
-        
-        Handle(NewVideoItem )
+        HandleNewVideoItem(index)
     }
 
     else{
@@ -188,32 +174,30 @@ Btnprev.onclick = () => {
         }
               return index
         })
-
         
-        
-
-            if (videoitemActive) {
-                videoitemActive.classList.remove("video-itemActive")
-            }
-            VideoItem[index ? index : 0].classList.add("video-itemActive")
-            videoitemActive = VideoItem[index]
-     
-            const NewVideoItem ={
-             video: VideoItem[index].querySelector("video").getAttribute("src"),
-             title: VideoItem[index].querySelector("h2").textContent
-            }
-            
-            Handle(NewVideoItem )   
+        HandleNewVideoItem(index)
                 
-        
-       
-       
-
     }
         
     
 }
 
+
+function HandleNewVideoItem(itemidex){
+    const VideoItem = document.querySelectorAll(".video-item")
+    if (videoitemActive) {
+        videoitemActive.classList.remove("video-itemActive")
+    }
+    VideoItem[itemidex].classList.add("video-itemActive")
+    videoitemActive = VideoItem[itemidex]
+
+    const NewVideoItem ={
+     video: VideoItem[itemidex].querySelector("video").getAttribute("src"),
+     title: VideoItem[itemidex].querySelector("h2").textContent
+    }
+    
+    Handle(NewVideoItem )
+}
 
 function Handle(VideoItem) {
 

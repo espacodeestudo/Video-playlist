@@ -54,26 +54,31 @@ body{
 
 .Container > .Container-video{
     width: 60%;
-    height: 70%;
+    
     background: var(--Background-video);
     border-radius: 1rem  1rem 2rem 2rem;
     overflow: hidden;
     padding-bottom: 2rem;
-    position: relative;
-    transition: all .4s ease-in-out;
-}
-
-.Container-video > video{
-    max-width: 100%;
+    
     
 }
-.Container-video > .video-control{
+.Container-video > .Video-sectioc {
+    position: relative;
+    transition: all .4s ease-in-out;
+    width: 100%;
+    
+}
+.Container-video .Video-sectioc > video{
+    max-width: 100%;
+  
+}
+.Container-video .Video-sectioc > .video-control{
     display: none;
 }
-.Container-video:hover > .video-control{
+.Container-video .Video-sectioc:hover > .video-control{
     position: absolute;
-    top: 32rem;
-    padding:0 3rem;
+   bottom: 0;
+    padding:2rem 3rem;
     display: flex;
     column-gap: 1.3rem;
 }
@@ -236,13 +241,13 @@ body{
     transition: all .4s ease-in-out;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .video-item:hover{
    filter: brightness(.9);
 }
 .video-item > h2{
-    text-align: center;
-    padding: 1.5rem 1rem;
+   padding: 0 .8rem;
     text-transform: capitalize;
     color: var(--Text-playlist);
     font-size: 1.7rem;
@@ -254,4 +259,67 @@ body{
 
 .video-itemActive{
     background: var(--Background-Active);
+}
+
+@media(max-width:980px){
+    .Wrapper{
+        
+        padding: 6rem;
+        
+    }
+    .Wrapper > .Container {
+        display: block;
+    
+    }
+
+    .Container > .Container-video{
+        width: 80%; 
+        margin-bottom: 3rem;
+    }
+    .Container > .Container-Playlist{
+        width: 80%;
+    }
+    
+}
+
+
+@media(max-width:780px){
+   
+    
+    .Wrapper > .Container {
+        padding:0 8rem;
+    }
+    .Container > .Container-video{
+        width: 100%; 
+       
+    }
+    .Container > .Container-Playlist{
+        width: 100%;
+        
+    }
+    
+}
+@media(max-width:580px){
+   
+    .Wrapper{
+       
+        display: initial;
+    }
+
+    .Wrapper > .Container {
+        padding:5rem;
+    }
+}
+
+@media(max-width:450px){
+   
+    
+
+    .Wrapper > .Container {
+        padding:0 2rem;
+    }
+
+    .Container > .Container-Playlist{
+        height: 50%;
+    }
 }
